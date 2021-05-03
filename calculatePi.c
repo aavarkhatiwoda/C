@@ -22,45 +22,33 @@ Generate pi:
 The generated value becomes more accurate as the number of trials increases.
 */
 
-
-
-double generateRand_0_1() {       /* Generate a random number between 0 and 1 */
-  return rand()/(double)RAND_MAX;
-}
-
 int main() {
 
   srand(time(NULL));
 
-
-  int trials = 1000000;
+  int trials = 100000000;
   int inCircle = 0;
-  double x;
-  double y;
+  double base = 3.14159265;
 
   for (int i = 0; i < trials; i++) {
-    x = generateRand_0_1();
-    y = generateRand_0_1();
-
-    if (x*x + y*y <= 1) {
-      inCircle++;
-    }
+    double x = rand()/(double)RAND_MAX; /* Generate a random number between 0 and 1 */
+    double y = rand()/(double)RAND_MAX; /* Generate a random number between 0 and 1 */
+    if (x*x + y*y <= 1) inCircle++;
   }
 
-  double difference = 4*((double)inCircle/trials) - 3.141592;
-  if (difference < 0) {
-    difference *= -1;
-  }
+  double difference = 4.0*((double)inCircle/trials) - base;
+  if (difference < 0) difference *= -1;
+  double accuracy = (1.0 - difference)*100;
 
-  printf("%lf\n",4*((double)inCircle/trials));
-
+  printf("\n");
+  printf("Base: %lf\n",base);
+  printf("Calculated: %lf\n",4*((double)inCircle/trials));
   printf("Difference: %lf\n",difference);
-
+  printf("Accuracy: %f percent\n",accuracy);
+  printf("\n");
 
   return 0;
 }
-
-
 
 
 
